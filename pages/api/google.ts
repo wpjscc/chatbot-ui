@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import { OPENAI_API_HOST } from '@/utils/app/const';
+import { OPENAI_API_HOST, GOOGLE_API_HOST } from '@/utils/app/const';
 import { cleanSourceText } from '@/utils/server/google';
 
 import { Message } from '@/types/chat';
@@ -19,7 +19,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<any>) => {
     const query = encodeURIComponent(userMessage.content.trim());
 
     const googleRes = await fetch(
-      `https://customsearch.googleapis.com/customsearch/v1?key=${
+      `${GOOGLE_API_HOST}/customsearch/v1?key=${
         googleAPIKey ? googleAPIKey : process.env.GOOGLE_API_KEY
       }&cx=${
         googleCSEId ? googleCSEId : process.env.GOOGLE_CSE_ID
